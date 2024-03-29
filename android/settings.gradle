@@ -1,0 +1,17 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    // Add configuration for Flutter and Dart
+    includeBuild("${settings.ext.flutterSdkPath}/packages/flutter_tools/gradle")
+}
+
+plugins {
+    id "dev.flutter.flutter-plugin-loader" version "1.0.0"
+}
+
+include ":app"
+// Remove Kotlin Android plugin
+// id "org.jetbrains.kotlin.android" version "1.7.10" apply false
