@@ -1,49 +1,65 @@
-// lib/widgets/login_form.dart
-
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/responsive.dart';
 
-class LoginForm extends StatefulWidget {
-  @override
-  _LoginFormState createState() => _LoginFormState();
-}
+import '../../components/background.dart';
+import 'components/login_form.dart';
+import 'components/login_screen_top_image.dart';
 
-class _LoginFormState extends State<LoginForm> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-
-  void login() {
-    String email = emailController.text.trim();
-    String password = passwordController.text.trim();
-
-    // Implement login logic here
-    // Example: Send HTTP request to backend for authentication
-    // Update UI based on authentication result
-  }
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          TextField(
-            controller: emailController,
-            decoration: InputDecoration(labelText: 'Email'),
+    return const Background(
+      child: SingleChildScrollView(
+        child: Responsive(
+          mobile: MobileLoginScreen(),
+          desktop: Row(
+            children: [
+              Expanded(
+                child: LoginScreenTopImage(),
+              ),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 450,
+                      child: LoginForm(),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-          SizedBox(height: 12),
-          TextField(
-            controller: passwordController,
-            decoration: InputDecoration(labelText: 'Password'),
-            obscureText: true,
-          ),
-          SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: login,
-            child: Text('Login'),
-          ),
-        ],
+        ),
       ),
+    );
+  }
+}
+
+class MobileLoginScreen extends StatelessWidget {
+  const MobileLoginScreen({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        LoginScreenTopImage(),
+        Row(
+          children: [
+            Spacer(),
+            Expanded(
+              flex: 8,
+              child: LoginForm(),
+            ),
+            Spacer(),
+          ],
+        ),
+      ],
     );
   }
 }
